@@ -2,9 +2,9 @@
 
 This module allows you to convert a template type to a GDALDataType at compile-time.
 
-Q: Why would someone want this?
+**Q:** Why would someone want this?
 
-A: This module provides syntactic sugar for easily writing clean, generic, raster code
+**A:** This module provides syntactic sugar for easily writing clean, generic, raster code
 that interacts with the GDAL library. Here are a couple example uses:
 
 ```C++
@@ -28,7 +28,7 @@ void DoSomething(T* array, size_t length) {
   // Squak if the user tries to use a type that doesn't have a GDALDataType equivalent
   // e.g. std::string
   static_assert(
-    gdaltypetraits::Convert<T>::value != GDALDataType::GDT_Unknown
+    gdaltypetraits::Convert<T>::is_recognized,
     "The template argument can't be converted to a GDAL data type.");
 
   // The idea of checking for GDT_Unknown can be extended into some interesting template metaprogramming...

@@ -168,7 +168,12 @@ struct Convert {
 // Tip: this is a compile-time constant. To forbid GDT_Unknown, you can use a static_assert.
 template<typename T>
 struct Convert {
+
+    // The template argument mapped to a GDAL data type.
     static const GDALDataType value = internal::Convert<T>::value;
+
+    // Whether or not the template argument is a recognized GDAL data type.
+    static const bool is_recognized = value != GDALDataType::GDT_Unknown;
 };
 
 
@@ -188,6 +193,8 @@ static_assert(Convert<double_t>::value == GDALDataType::GDT_Float64, "Convert<T>
 
 // Check that we generate Unknown when given a bad type.
 static_assert(Convert<void*>::value    == GDALDataType::GDT_Unknown, "Convert<T> test failed.");
+static_assert(!Convert<void*>::is_recognized, "Convert<T> test failed.");
+static_assert(Convert<int8_t>::is_recognized, "Convert<T> test failed.");
 
 // Test enumeration logic.
 enum EnumInt8 :int8_t { Foo };
