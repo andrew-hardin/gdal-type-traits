@@ -37,7 +37,7 @@ basic type to GDAL. For example:
             static const GDALDataType kRasterType = gdaltypetraits::Convert<T>::value;
 
             void Write() {
-               RasterIO(...args..., kGDALType);   
+               RasterIO(...args..., kRasterType);   
             }
         }
 
